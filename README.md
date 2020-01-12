@@ -25,7 +25,8 @@ $npm install aqua --global
 ```sh
 $git clone https://github.com/merefu/aqua.git
 $cd aqua
-$yarn
+$yarn link
+$yarn global add aqua
 ```
 
 ## 🛠 Modules
