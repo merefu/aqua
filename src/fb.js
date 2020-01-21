@@ -54,6 +54,10 @@ FB.Helper = class {
         const req = this.fb.api(`/${id}?${querystring.stringify(queryParams)}`, 'delete');
 
         await req;
+
+        return {
+            id: id,
+        };
     }
 
     async getPosts(object, edge, opts) {
@@ -135,6 +139,7 @@ FB.Helper = class {
 
         return {
             id: data.id,
+            postId: data.post_id,
         };
     }
 

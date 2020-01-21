@@ -26,16 +26,15 @@ module.exports = exports = {
         }),
     handler: async argv => {
         const fbHelper = new FB.Helper(new FB(), argv.accessToken);
-        const req = await fbHelper.publishPost(argv.object, argv.edge, {
+        const data = await fbHelper.publishPost(argv.object, argv.edge, {
             ...(argv.message && { message: argv.message }),
             ...(argv.link && { link: argv.link }),
             ...(argv.publishTime && { scheduled_publish_time: argv.publishTime.unix() }),
         });
-        const data = req.data;
 
         switch(argv.outputFormat) {
             case 'json':
-                console.log(data);
+                console.log(JSON.stringify(data));
                 break;
 
             case 'text':

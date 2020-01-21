@@ -32,22 +32,21 @@ module.exports = exports = {
         }),
     handler: async argv => {
         const fbHelper = new FB.Helper(new FB(), argv.accessToken);
-        const req = await fbHelper.publishComment(argv.object, {
+        const data = await fbHelper.publishComment(argv.object, {
             ...(argv.attachmentId && { attachment_id: argv.attachmentId }),
             ...(argv.attachmentShareUrl && { attachment_share_url: argv.attachmentShareUrl }),
             ...(argv.attachmentUrl && { attachment_url: argv.attachmentUrl }),
             ...(argv.source && { source: argv.source }),
             ...(argv.message && { message: argv.message }),
         });
-        const data = req.data;
 
         switch(argv.outputFormat) {
             case 'json':
-                console.log(data);
+                console.log(JSON.stingify(data));
                 break;
 
             case 'text':
-                console.log(data.id);
+                console.log(`Successfully posted comment. Comment ID: ${data.id}`);
                 break;
         }
     },

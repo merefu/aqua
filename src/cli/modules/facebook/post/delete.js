@@ -14,21 +14,15 @@ module.exports = exports = {
     handler: async argv => {
         const fbHelper = new FB.Helper(new FB(), argv.accessToken);
 
-        let result;
-        try {
-            await fbHelper.deletePost(argv.id);
-            result = { success: true, id: argv.id };
-        } catch(e) {
-            result = { success: false, id: argv.id };
-        }
+        const data = await fbHelper.deletePost(argv.id);
 
         switch(argv.outputFormat) {
             case 'json':
-                console.log(data);
+                console.log(JSON.stringify(data));
                 break;
 
             case 'text':
-                console.log(`Successfully created post. Post ID: ${data.id}`);
+                console.log(`Successfully deleted post. Post ID: ${data.id}`);
                 break;
         }
     },

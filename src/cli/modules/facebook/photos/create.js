@@ -35,22 +35,20 @@ module.exports = exports = {
         }),
     handler: async argv => {
         const fbHelper = new FB.Helper(new FB(), argv.accessToken);
-        const req = await fbHelper.publishPhoto(argv.object, argv.edge, {
+        const data = await fbHelper.publishPhoto(argv.object, argv.edge, {
             ...(argv.message && { message: argv.message }),
             ...(argv.source && { source: argv.source }),
             ...(argv.url && { url: argv.url }),
             ...(argv.publishTime && { scheduled_publish_time: argv.publishTime.unix() }),
         });
-        const data = req.data;
 
         switch(argv.outputFormat) {
             case 'json':
-                console.log(data);
+                console.log(JSON.stingify(data));
                 break;
 
             case 'text':
-                console.log(data.id);
-                console.log(data.post_id);
+                console.log(`Successfully posted image. Image ID: ${data.id} Post ID: ${data.postId}`);
                 break;
         }
     },
