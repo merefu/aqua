@@ -1,6 +1,8 @@
 const { createWorker } = require('@ffmpeg/ffmpeg');
 const fs = require('fs');
 const path = require('path');
+const imghash = require('imghash');
+const leven = require('leven');
 
 async function getFrameCount(file) {	
 	let output = [];
@@ -52,7 +54,21 @@ async function extractFrames(file, frames, config) {
 	return images;
 }
 
+async function diffImage(a, b, bits, tol) {
+	const aHash = await hashImage(a, bits);
+	const bHash = await hashImage(b, bits);
+	const diff = leven(aHash, bHash);
+
+	return diff;
+}
+
+async function hashImage(file, bits) {
+	return await imghash.hash(file, bits);
+}
+
 module.exports = exports = {
 	getFrameCount,
 	extractFrames,
+	diffImage,
+	hashImage
 };

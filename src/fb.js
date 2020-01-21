@@ -53,7 +53,7 @@ FB.Helper = class {
 
         const req = this.fb.api(`/${id}?${querystring.stringify(queryParams)}`, 'delete');
 
-        return await req;
+        await req;
     }
 
     async getPosts(object, edge, opts) {
@@ -95,9 +95,12 @@ FB.Helper = class {
             params.scheduled_publish_time = scheduledPublishTime.unix();
         }
 
-        const req = this.fb.api(`/${object}/${edge}`, 'post', params);
+        const req = await this.fb.api(`/${object}/${edge}`, 'post', params);
+        const data = req.data;
 
-        return await req;
+        return {
+            id: data.id,
+        };
     }
 
     async publishPhoto(object, edge, opts) {
@@ -127,9 +130,12 @@ FB.Helper = class {
             params.append('scheduled_publish_time', scheduledPublishTime.unix());
         }
 
-        const req = this.fb.api(`/${object}/${edge}`, 'post', params);
+        const req = await this.fb.api(`/${object}/${edge}`, 'post', params);
+        const data = req.data;
 
-        return await req;
+        return {
+            id: data.id,
+        };
     }
 
     async publishComment(object, opts) {
@@ -151,9 +157,12 @@ FB.Helper = class {
         }
         if(opts.message) params.append('message', opts.message);
 
-        const req = this.fb.api(`/${object}/comments`, 'post', params);
+        const req = await this.fb.api(`/${object}/comments`, 'post', params);
+        const data = req.data;
 
-        return await req;
+        return {
+            id: data.id,
+        };
     }
 };
 

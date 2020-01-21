@@ -39,7 +39,7 @@ module.exports = exports = {
                 break;
 
             case 'text':
-                console.log(data.id);
+                console.log(`Successfully created post. Post ID: ${data.id}`);
                 break;
         }
     },
