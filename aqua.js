@@ -3,8 +3,6 @@
 require('module-alias/register');
 require('dotenv').config();
 
-const { EOL } = require('os');
-
 const yargs = require('yargs');
 const argv = yargs.usage('usage: $0 <module>')
 	.options({
