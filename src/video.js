@@ -31,7 +31,7 @@ async function extractFrames(file, frames, config) {
 
 	frames = [...new Set(frames)].sort((a, b) => a - b);
 
-	const worker = createWorker();
+	const worker = createWorker({ logger: ({message}) => console.log(message)});
 	await worker.load();
 
 	const baseName = path.basename(file);
@@ -54,10 +54,14 @@ async function extractFrames(file, frames, config) {
 	return images;
 }
 
+function diffString(a, b) {
+	return leven(a, b);
+}
+
 async function diffImage(a, b, bits) {
 	const aHash = await hashImage(a, bits);
 	const bHash = await hashImage(b, bits);
-	const diff = leven(aHash, bHash);
+	const diff = diffString(aHash, bHash);
 
 	return diff;
 }
@@ -69,6 +73,7 @@ async function hashImage(file, bits) {
 module.exports = exports = {
 	getFrameCount,
 	extractFrames,
+	diffString,
 	diffImage,
 	hashImage
 };
