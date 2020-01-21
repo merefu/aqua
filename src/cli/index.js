@@ -8,7 +8,7 @@ const argv = yargs.usage('usage: $0 <module>')
 			alias: 'c',
 			describe: 'Configuration file path',
 			type: 'text',
-			default: 'aqua.json'
+			default: 'aqua-cli.json'
 		},
 	})
 	.commandDir('modules')
