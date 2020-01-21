@@ -54,7 +54,7 @@ async function extractFrames(file, frames, config) {
 	return images;
 }
 
-async function diffImage(a, b, bits, tol) {
+async function diffImage(a, b, bits) {
 	const aHash = await hashImage(a, bits);
 	const bHash = await hashImage(b, bits);
 	const diff = leven(aHash, bHash);
