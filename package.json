@@ -12,7 +12,7 @@
     "imghash": "^0.0.6",
     "leven": "^3.1.0",
     "module-alias": "^2.2.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "yargs": "^15.1.0"
   },
   "bin": {
